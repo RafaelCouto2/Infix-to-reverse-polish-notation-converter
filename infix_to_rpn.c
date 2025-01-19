@@ -1,12 +1,4 @@
-#include <string.h>
-#include <ctype.h>
-#include "pilha_encadeada.h"
-#include "lista_encadeada.h"
-
-struct priority {
-    char opr[5];
-    int pri[5];
-};
+#include "infix_to_rpn.h"
 
 struct priority my_priority = {
     .opr = {'^', '*', '/', '+', '-'},
@@ -122,27 +114,3 @@ int infix_to_rpn(_stack ** stck)
     (*stck) = stack;
     return 0;
 }
-
-int main(int argc, char const *argv[])
-{
-    
-    _stack * stack = NULL;
-    infix_to_rpn(&stack);
-    linked_list * rpn = NULL;
-    
-    while(stack)
-    {
-        push_back(&rpn, top(stack));
-        pop(&stack);
-    }
-
-    while (rpn)
-    {
-        printf("%c", pop_back(&rpn));
-    }
-
-    printf("\n\n");
-
-    return 0;
-}
-

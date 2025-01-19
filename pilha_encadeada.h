@@ -1,4 +1,5 @@
 #pragma once
+
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -16,4 +17,3 @@ int push(_stack ** stack, char val);
 char pop(_stack ** stack);
 char top(_stack * stack);
 int __size(_stack * stack);
-
