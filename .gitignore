@@ -9,4 +9,7 @@ vscode/*
 .history/
 # Built Visual Studio Code Extensions
 *.vsix
+# .exe files
 *.exe
+# .txt files
+*.txt
