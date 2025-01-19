@@ -1,0 +1,98 @@
+void infix_to_rpn(_stack ** stck) 
+{
+    _stack ** head = stck;
+    _stack * stack = NULL;
+    //_stack * stack_aux = NULL;
+    linked_list * list = NULL;
+    _stack * ptr;
+    char buffer[100];
+    printf("Digite a expressão numérica. Ex.: ");
+    fflush(stdin);
+    gets_s(buffer, 100);
+    int temp = 1;
+    int paren = 0;
+    
+    for (int i = 0; buffer[i] != '\0'; i++)
+    {
+
+        if(isdigit(buffer[i]))
+        {
+            push(&stack, buffer[i]); if(temp){temp = 0; ptr = stack;}
+            continue;
+        }
+
+        if((buffer[i] == ' ' && top(stack) != ' '))
+        {
+            push(&stack, ' ');
+            continue;
+        }
+
+        if(buffer[i] == ' ') continue;
+
+        if (buffer[i] == ')')
+        {
+            push(&stack, ' ');
+        }
+
+        if(!isdigit(buffer[i]) && buffer[i] != '(' && buffer[i] != ')') 
+        {
+            if(paren)
+            {
+                push_back(&list, buffer[i]);
+                paren = 0;
+                continue;
+            }
+            else
+            {
+                if(topl(&list)){
+                    if(topl(&list) != '(')
+                    {   
+                        if(has_priority(topl(&list), buffer[i]))
+                        {
+                            push(&stack, topl(&list));
+                            pop_back(&list);
+                            push(&stack, ' ');
+                        }
+                        else if (same_priority(topl(&list), buffer[i]))
+                        {
+                            push(&stack, topl(&list));
+                            pop_back(&list);
+                            push(&stack, ' ');
+                        }
+                    }
+                }
+            }
+        }
+
+        if(!isdigit(buffer[i]))
+        { 
+            push_back(&list, buffer[i]);
+        }
+
+        if(buffer[i] == ')')
+        {
+            while(pop_back(&list) != '(')
+            {
+                if(topl(&list) != '(')
+                {
+                    push(&stack, topl(&list));
+                    push(&stack, ' ');
+                }
+            }
+            //paren = 0;
+            
+        }
+
+        if(topl(&list) == '(') paren = 1;
+        
+    }
+
+    while(topl(&list))
+    {
+        if(top(stack) != ' ') push(&stack, ' ');
+        push(&stack, topl(&list));
+        pop_back(&list);
+    }
+
+    (*head) = stack;
+}
