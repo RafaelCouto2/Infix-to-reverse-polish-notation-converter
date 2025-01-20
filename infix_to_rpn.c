@@ -31,7 +31,7 @@ int same_priority(char c, char _c)
 
 int infix_to_rpn(_stack ** stck) 
 {
-    if(!(stck)) return -1; 
+    if(!(stck)) return -1;
     _stack * stack = NULL;
     _stack * stack_aux = NULL;
     char buffer[500];
