@@ -4,17 +4,17 @@ int main(int argc, char const *argv[])
 {
     _stack * stack = NULL;
     infix_to_rpn(&stack);
-    linked_list * rpn = NULL;
+    _stack * rpn = NULL;
     
     while(stack)
     {
-        push_back(&rpn, top(stack));
+        push(&rpn, top(stack));
         pop(&stack);
     }
 
     while (rpn)
     {
-        printf("%c", pop_back(&rpn));
+        printf("%c", pop(&rpn));
     }
 
     printf("\n\n");

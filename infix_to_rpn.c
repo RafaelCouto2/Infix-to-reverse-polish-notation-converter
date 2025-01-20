@@ -40,8 +40,14 @@ int infix_to_rpn(_stack ** stck)
     gets_s(buffer, 500);
     int paren = 0;
     for (int i = 0; buffer[i] != '\0'; i++)
-    {
+    {   
         if(isdigit(buffer[i]))
+        {
+            push(&stack, buffer[i]);
+            continue;
+        }
+
+        if(isdigit(buffer[i+1]) && (buffer[i] <= 45 && buffer[i] >= 43))
         {
             push(&stack, buffer[i]);
             continue;
